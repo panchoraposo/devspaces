@@ -9,7 +9,7 @@ attributes:
 components:
   - name: tools
     container:
-      image: registry.redhat.io/devspaces/udi-rhel9
+      image: registry.redhat.io/ubi9/openjdk-21
       command: ["tail", "-f", "/dev/null"]
       memoryLimit: 512Mi
       cpuLimit: 500m
