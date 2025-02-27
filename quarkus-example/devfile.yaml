@@ -1,0 +1,76 @@
+schemaVersion: 2.2.0
+metadata:
+  name: quarkus-example
+  language: "Java"
+  projectType: "Quarkus"
+attributes:
+  memoryRequest: 512Mi
+  memoryLimit: 1Gi
+components:
+  - name: tools
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel9
+      command: ["tail", "-f", "/dev/null"]
+      memoryLimit: 512Mi
+      cpuLimit: 500m
+      mountSources: true
+      endpoints:
+        - name: https
+          targetPort: 8080
+          protocol: https
+          exposure: public
+        - name: debug
+          targetPort: 5858
+          protocol: https
+          exposure: public
+      volumeMounts:
+        - name: app-cache
+          path: /home/user/.m2
+      env:
+        - name: DEBUG_PORT
+          value: '5858'
+        - name: QUARKUS_LAUNCH_DEV_MODE
+          value: "true"
+        - name: QUARKUS_PROFILE
+          value: "dev"
+        
+      args:
+        - "sleep"
+        - "infinity"
+
+  - name: app-cache
+    volume:
+      size: 1Gi
+
+commands:
+  - id: build
+    exec:
+      component: tools
+      commandLine: "mvn clean package -Dquarkus.profile=dev"
+      workingDir: ${PROJECT_SOURCE}/quarkus-example
+      group:
+        kind: build
+
+  - id: dev
+    exec:
+      component: tools
+      commandLine: "mvn quarkus:dev -Dquarkus.profile=dev"
+      workingDir: ${PROJECT_SOURCE}/quarkus-example
+      group:
+        kind: run
+
+  - id: test
+    exec:
+      component: tools
+      commandLine: "mvn test -Dquarkus.profile=test"
+      workingDir: ${PROJECT_SOURCE}/quarkus-example
+      group:
+        kind: test
+  
+  - id: s2i-openshift
+    exec:
+      component: tools
+      commandLine: mvn clean package -Dquarkus.kubernetes.deploy=true
+      workingDir: ${PROJECT_SOURCE}/quarkus-example
+      group:
+        kind: deploy
