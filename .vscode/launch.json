@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [     
+        {
+            "type": "java",
+            "name": "Remote Debug (Attach Quarkus)",
+            "request": "attach",
+            "hostName": "localhost",
+            "port": 5005
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+    ]
+}
