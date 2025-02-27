@@ -4,15 +4,15 @@ metadata:
   language: "Java"
   projectType: "Quarkus"
 attributes:
-  memoryRequest: 1Gi
-  memoryLimit: 2Gi
+  memoryRequest: 2Gi
+  memoryLimit: 4Gi
 components:
   - name: tools
     container:
       image: registry.redhat.io/ubi9/openjdk-21
       command: ["tail", "-f", "/dev/null"]
-      memoryLimit: 1Gi
-      cpuLimit: 1000m
+      memoryLimit: 2Gi
+      cpuLimit: 2000m
       mountSources: true
       endpoints:
         - name: https
