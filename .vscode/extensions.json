@@ -1,0 +1,12 @@
+{
+    "recommendations": [
+        "redhat.vscode-openshift-connector",
+        "redhat.java",
+        "redhat.vscode-yaml",
+        "vscjava.vscode-maven",
+        "vscjava.vscode-java-debug",
+        "redhat.vscode-quarkus",
+        "redhat.vscode-tekton-pipelines",
+        "redhat.vscode-xml"
+    ]
+}
