@@ -1,0 +1,29 @@
+apiVersion: tempo.grafana.com/v1alpha1
+kind:  TempoStack
+metadata:
+  name: simplest
+  #namespace: observability
+spec:
+  storage:
+    secret:
+      name: tempostack-demo-s3
+      type: s3
+  storageSize: 1Gi
+  resources:
+    total:
+      limits:
+        memory: 2Gi
+        cpu: 2000m
+  tenants:
+    mode: openshift
+    authentication:
+      - tenantName: dev
+        tenantId: "1610b0c3-c509-4592-a256-a1871353dbfa"
+      - tenantName: prod
+        tenantId: "6094b0f1-711d-4395-82c0-30c2720c6648"
+  template:
+    gateway:
+      enabled: true
+    queryFrontend:
+      jaegerQuery:
+        enabled: true
