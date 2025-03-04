@@ -12,7 +12,7 @@ function SeatSelection() {
   const [status, setStatus] = useState('');
 
   useEffect(() => {
-    axios.get('https://order-orders.apps.qmv12ghc.eastus.aroapp.io/orders/users')
+    axios.get('https://order-orders.apps.qmv12ghc.eastus.aroapp.io/users')
       .then(response => setUsers(response.data))
       .catch(error => {
         console.error('Error al obtener usuarios:', error);
