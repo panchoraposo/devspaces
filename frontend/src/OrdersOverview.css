@@ -1,0 +1,40 @@
+.orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .orders-table th, .orders-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .orders-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .orders-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .orders-table tr:hover {
+    background-color: #ddd;
+  }
+  
+  .container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 20px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  /* Tooltip Style */
+  .tooltip {
+    cursor: pointer;
+    margin-left: 5px;
+    font-weight: bold;
+  }

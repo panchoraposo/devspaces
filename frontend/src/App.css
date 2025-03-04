@@ -1,0 +1,143 @@
+/* Contenedor general de los asientos */
+.seats-container {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Fila de asientos */
+.row {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Efecto al pasar el mouse sobre el asiento */
+.seat:hover {
+  background-color: #3d92c7;
+  transform: scale(1.05);
+}
+
+/* Selector de usuario */
+select {
+  padding: 12px 15px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 220px;
+  margin-bottom: 20px;
+  background-color: white;
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Contenedor del encabezado y status */
+h1 {
+  text-align: center;
+  font-size: 24px;
+  color: #333;
+}
+
+h3 {
+  font-size: 18px;
+  color: #d32f2f;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Contenedor de pago */
+button {
+  padding: 12px 25px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Estilo de los mensajes de error o éxito */
+.status-message {
+  font-size: 16px;
+  color: #d32f2f;
+  text-align: center;
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Asiento */
+.seat {
+  width: 70px; /* Un poco más de ancho para acomodar texto */
+  height: 80px; /* Un poco más de altura para el precio */
+  display: flex;
+  flex-direction: column; /* Alinea el texto de arriba hacia abajo */
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: 14px;
+  color: #333;
+  border: 2px solid #ddd;
+  position: relative;
+  padding: 5px;
+}
+
+/* Asiento seleccionado */
+.seat.selected {
+  background-color: #4CAF50;
+  color: white;
+  transform: scale(1.1);
+  border-color: #388E3C;
+}
+
+/* Asiento no disponible */
+.seat.not-available {
+  background-color: #BDBDBD;
+  cursor: not-allowed;
+  color: white;
+}
+
+/* Número de asiento */
+.seat-id {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Precio debajo del número de asiento */
+.seat-price {
+  font-size: 12px;
+  color: #777;
+}
+
+/* Espaciado adicional */
+.row {
+  margin-bottom: 15px;
+}
+
+/* Estilo adicional de la fila de asientos */
+.row div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
