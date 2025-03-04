@@ -9,7 +9,7 @@ const OrdersOverview = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const ordersRes = await fetch("https://order-orders.apps.cluster-n9mp9.n9mp9.sandbox2169.opentlc.com/orders");
+        const ordersRes = await fetch("https://order-orders.apps.qmv12ghc.eastus.aroapp.io/orders");
         const ordersData = await ordersRes.json();
         console.log("Órdenes obtenidas:", ordersData);
 
