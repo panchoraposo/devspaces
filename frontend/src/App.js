@@ -49,7 +49,7 @@ function SeatSelection() {
     const price = selectedSeatData ? selectedSeatData.price : 0;
 
     try {
-      const response = await axios.post('https://order-orders.apps.qmv12ghc.eastus.aroapp.io/orders', {
+      const response = await axios.post('https://order-orders.apps.qmv12ghc.eastus.aroapp.io/order', {
         seatId: selectedSeat,
         userId: selectedUser,
         price: price
