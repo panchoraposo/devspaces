@@ -86,11 +86,11 @@ function SeatSelection() {
         {rows.map((row, rowIndex) => (
           <div key={rowIndex} className="row">
             {row.map(seat => (
-              <div
-                key={seat.seatId}
-                className={`seat ${selectedSeat === seat.seatId ? 'selected' : ''} ${seat.status === 'not available' ? 'not-available disabled' : ''}`}
-                onClick={() => handleSeatClick(seat.seatId)}
-              >
+                <div
+                  key={seat.seatId}
+                  className={`seat ${selectedSeat === seat.seatId ? 'selected' : ''} ${seat.status === 'not available' || seat.status === 'RESERVED' ? 'not-available disabled' : ''}`}
+                  onClick={() => handleSeatClick(seat.seatId)}
+                >
                 <div className="seat-id">{seat.seatId}</div>
                 <div className="seat-price">${seat.price}</div>
               </div>
