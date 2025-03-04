@@ -60,7 +60,7 @@ function SeatSelection() {
       const updatedSeats = await axios.get('https://allocate-allocations.apps.qmv12ghc.eastus.aroapp.io/seats');
       setSeats(updatedSeats.data.sort((a, b) => a.seatId.localeCompare(b.seatId)));
     } catch (error) {
-      setStatus(`Erroral crear orden para el asiento ${selectedSeat}`);
+      setStatus(`Error al crear orden para el asiento ${selectedSeat}`);
       console.error(error);
     }
   };
