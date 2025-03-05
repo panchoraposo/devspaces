@@ -1,6 +1,6 @@
 schemaVersion: 2.2.0
 metadata:
-  name: quarkus-example
+  name: seats-app
   language: "Java"
   projectType: "Quarkus"
 attributes:
@@ -8,6 +8,29 @@ attributes:
   memoryLimit: 4Gi
 components:
   - name: tools
+    container:
+      image: registry.redhat.io/devspaces/udi-rhel9
+      command: ["tail", "-f", "/dev/null"]
+      memoryLimit: 512Mi
+      cpuLimit: 500m
+      sourceMapping: /projects
+      mountSources: true
+      endpoints:
+        - name: https-node
+          targetPort: 3000
+          protocol: https
+        - exposure: none
+          name: debug
+          targetPort: 9229
+      volumeMounts:
+        - name: app-cache
+          path: ${PROJECT_SOURCE}/node-modules
+      env:
+        - name: NODE_ENV
+          value: development
+        - name: PORT
+          value: "3000"  
+  - name: tools-jdk
     container:
       image: registry.redhat.io/ubi9/openjdk-21
       command: ["tail", "-f", "/dev/null"]
@@ -43,34 +66,58 @@ components:
       size: 1Gi
 
 commands:
-  - id: build
+  - id: 1-dev-order
     exec:
-      component: tools
-      commandLine: "mvn clean package -Dquarkus.profile=dev"
-      workingDir: ${PROJECT_SOURCE}/quarkus-example
-      group:
-        kind: build
-
-  - id: dev
-    exec:
-      component: tools
+      component: tools-jdk
       commandLine: "mvn quarkus:dev -Dquarkus.profile=dev"
-      workingDir: ${PROJECT_SOURCE}/quarkus-example
+      workingDir: ${PROJECT_SOURCE}/order
+      group:
+        kind: run
+  
+  - id: 2-dev-allocation
+    exec:
+      component: tools-jdk
+      commandLine: "mvn quarkus:dev -Dquarkus.profile=dev"
+      workingDir: ${PROJECT_SOURCE}/allocate
       group:
         kind: run
 
-  - id: test
+  - id: 3-dev-payment
     exec:
-      component: tools
-      commandLine: "mvn test -Dquarkus.profile=test"
-      workingDir: ${PROJECT_SOURCE}/quarkus-example
+      component: tools-jdk
+      commandLine: "mvn quarkus:dev -Dquarkus.profile=dev"
+      workingDir: ${PROJECT_SOURCE}/payment
       group:
-        kind: test
-  
-  - id: s2i-openshift
+        kind: run
+
+  - id: 4-s2i-openshift-order
     exec:
-      component: tools
-      commandLine: mvn clean package -Dquarkus.kubernetes.deploy=true
-      workingDir: ${PROJECT_SOURCE}/quarkus-example
+      component: tools-jdk
+      commandLine: mvn clean package -Dquarkus.kubernetes.deploy=true -DskipTests
+      workingDir: ${PROJECT_SOURCE}/order
       group:
         kind: deploy
+
+  - id: 5-s2i-openshift-allocation
+    exec:
+      component: tools-jdk
+      commandLine: mvn clean package -Dquarkus.kubernetes.deploy=true -DskipTests
+      workingDir: ${PROJECT_SOURCE}/allocate
+      group:
+        kind: deploy
+
+  - id: 6-s2i-openshift-payment
+    exec:
+      component: tools-jdk
+      commandLine: mvn clean package -Dquarkus.kubernetes.deploy=true -DskipTests
+      workingDir: ${PROJECT_SOURCE}/payment
+      group:
+        kind: deploy
+  
+  - id: 7-dev-frontend
+    exec:
+      component: tools
+      commandLine: "npm run"
+      workingDir: ${PROJECT_SOURCE}/frontend
+      group:
+        kind: run

@@ -1,0 +1,21 @@
+apiVersion: logging.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: observability
+spec:
+  serviceAccount: sa-logforwarder
+  pipelines:
+    - name: all-to-loki
+      inputRefs:
+        - application
+        - infrastructure
+        - audit
+      outputRefs:
+        - lokistack
+  outputs:
+    - name: lokistack
+      type: loki
+      url: https://lokistack-gateway-http.openshift-logging.svc.cluster.local:8080
+      lokistack:
+        name: lokistack
