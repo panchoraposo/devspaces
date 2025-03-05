@@ -42,7 +42,7 @@ components:
           targetPort: 8080
           protocol: https
           exposure: public
-        - name: debug
+        - name: debug-jdk
           targetPort: 5858
           protocol: https
           exposure: public
