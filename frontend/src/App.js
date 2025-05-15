@@ -12,14 +12,14 @@ function SeatSelection() {
   const [status, setStatus] = useState('');
 
   useEffect(() => {
-    axios.get('https://order-orders.apps.zyoqadxe.eastus.aroapp.io/users')
+    axios.get('https://order-order.apps.cluster-2x2ds.2x2ds.sandbox669.opentlc.com/users')
       .then(response => setUsers(response.data))
       .catch(error => {
         console.error('Error al obtener usuarios:', error);
         setStatus('Error al cargar la lista de usuarios.');
       });
 
-    axios.get('https://allocate-allocations.apps.zyoqadxe.eastus.aroapp.io/seats')
+    axios.get('https://allocation-allocations.apps.cluster-2x2ds.2x2ds.sandbox669.opentlc.com/seats')
       .then(response => {
         const sortedSeats = response.data.sort((a, b) => a.seatId.localeCompare(b.seatId));
         setSeats(sortedSeats);
@@ -49,7 +49,7 @@ function SeatSelection() {
     const price = selectedSeatData ? selectedSeatData.price : 0;
 
     try {
-      const response = await axios.post('https://order-orders.apps.zyoqadxe.eastus.aroapp.io/order', {
+      const response = await axios.post('https://order-order.apps.cluster-2x2ds.2x2ds.sandbox669.opentlc.com/order', {
         seatId: selectedSeat,
         userId: selectedUser,
         price: price
@@ -57,7 +57,7 @@ function SeatSelection() {
       setStatus(`Orden creada para el asiento ${selectedSeat} de ${selectedUser}`);
       console.log(response.data);
 
-      const updatedSeats = await axios.get('https://allocate-allocations.apps.zyoqadxe.eastus.aroapp.io/seats');
+      const updatedSeats = await axios.get('https://allocation-allocations.apps.cluster-2x2ds.2x2ds.sandbox669.opentlc.com/seats');
       setSeats(updatedSeats.data.sort((a, b) => a.seatId.localeCompare(b.seatId)));
     } catch (error) {
       setStatus(`Error al crear orden para el asiento ${selectedSeat}`);
